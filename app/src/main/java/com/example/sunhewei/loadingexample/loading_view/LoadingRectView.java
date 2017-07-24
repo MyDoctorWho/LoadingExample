@@ -22,10 +22,19 @@ public class LoadingRectView extends SurfaceView{
     private SurfaceHolder surfaceHolder;
 
     private Point pCenter;
+    //六边形的中心点
+    private Point[] hexagonCenters = new Point[6];
 
     private int viewWidth,viewHeight;
 
+    private float sin30 = (float) Math.sin(30f * 2f * Math.PI / 360f);
+    private float cos30 = (float) Math.cos(30f * 2f * Math.PI / 360f);
+
     private float space;
+    //六边形的半径
+    private float hexagonRadius;
+    //基准数据是否已初始化
+    private boolean baseDataInited = false;
 
     public LoadingRectView(Context context) {
         this(context,null);
@@ -63,10 +72,17 @@ public class LoadingRectView extends SurfaceView{
             pCenter.y = viewHeight / 2;
             float spacereate = 1 / 100f;
             space = viewWidth<=viewHeight?viewWidth * spacereate:viewHeight * spacereate;
+            hexagonRadius = (float) ((viewWidth - 2 * space) / (3 * Math.sqrt(3)));
+            initHexagonCenters();
 
             paint.setPathEffect(new CornerPathEffect(0.1f));
-            
+            baseDataInited = true;
         }
+    }
+
+    private void initHexagonCenters(){
+        float bigR = (float) ((1.5 * hexagonRadius +space)/cos30);
+        //##
     }
 
 
